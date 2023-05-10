@@ -1,11 +1,12 @@
-
-
 const express = require('express')
+const bodyParser = require('body-parser');
 const app = express()
 const port = 3001
 
 
 app.use(express.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const playlists = [
   {
@@ -710,6 +711,10 @@ const musicas = [
   }
 ]
 
+app.get('/', (req, res) => {
+  res.json('Backend Spotify');
+})
+
 //LISTAR PLAYLISTS PUBLICAS
 app.get('/playlists', (req, res) => {
   res.json(playlists);
@@ -729,9 +734,19 @@ app.get('/playlists', (req, res) => {
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
 app.patch('/usuarios/:id/playlists', (req, res) => {
-  const playlist = req.body;
-  playlists.push(playlist)
-  res.json(playlist);
+  const {nome, musicas} = req.body;
+  const { id } = req.params;
+
+  const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id)
+  if (!usuarioRequisitado) {
+    return res.status(404).json({ error: 'Usuário não encontrado.' });
+  }
+
+  const novoUsuario = {...usuarioRequisitado}
+  novoUsuario.playlists = novoUsuario.playlists || [];
+  novoUsuario.playlists.push({nome: nome, musicas: musicas})
+  
+  res.status(200).json(novoUsuario);
 })
 
 //BUSCAR MUSICAS
