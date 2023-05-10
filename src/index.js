@@ -710,17 +710,34 @@ const musicas = [
   }
 ]
 
-
+//LISTAR PLAYLISTS PUBLICAS
 app.get('/playlists', (req, res) => {
   res.json(playlists);
 })
 
-app.post('/playlists', (req, res) => {
+//LISTAR DETALHES DAS PLAYLISTS PUBLICAS
+
+
+//CADASTRO DE USUARIO
+
+
+//LOGIN
+
+
+//EDITAR PERFIL
+
+
+//CADASTRO DAS PLAYLISTS PRIVADAS
+app.patch('/usuarios/:id/playlists', (req, res) => {
   const playlist = req.body;
   playlists.push(playlist)
   res.json(playlist);
 })
 
+//BUSCAR MUSICAS
+
+
+//EDITAR PLAYLISTS PRIVADAS
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
