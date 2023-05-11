@@ -744,7 +744,7 @@ app.get('/playlists', (req, res) => {
 
 
 //EDITAR PERFIL
-app.put('/usuarios/:id', (req, res) => {
+app.patch('/usuarios/:id', (req, res) => {
   const { nome, email, senha } = req.body;
   const { id } = req.params;
 
@@ -788,7 +788,7 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
 
 
 //EDITAR PLAYLISTS PRIVADAS
-app.put('/usuarios/:id/playlists/:playlistId', (req, res) => {
+app.patch('/usuarios/:id/playlists/:playlistId', (req, res) => {
   const { nome, musicas } = req.body;
   const { id, playlistId } = req.params;
 
