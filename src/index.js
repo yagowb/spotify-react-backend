@@ -711,25 +711,56 @@ const musicas = [
   }
 ]
 
+
+/*==============*/
+/*    ROTAS     */
+/*==============*/
+
+
 app.get('/', (req, res) => {
-  res.json('Backend Spotify');
+  res.json('Backend TocaPlay');
 })
+
+
 
 //LISTAR PLAYLISTS PUBLICAS
 app.get('/playlists', (req, res) => {
   res.json(playlists);
 })
 
+
+
 //LISTAR DETALHES DAS PLAYLISTS PUBLICAS
+
 
 
 //CADASTRO DE USUARIO
 
 
+
 //LOGIN
 
 
+
+
 //EDITAR PERFIL
+app.put('/usuarios/:id', (req, res) => {
+  const { nome, email, senha } = req.body;
+  const { id } = req.params;
+
+  const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id);
+  if (!usuarioRequisitado) {
+    return res.status(404).json({ error: 'Usuário não encontrado.' });
+  }
+
+  usuarioRequisitado.nome = nome || usuarioRequisitado.nome;
+  usuarioRequisitado.email = email || usuarioRequisitado.email;
+  usuarioRequisitado.senha = senha || usuarioRequisitado.senha;
+
+  res.status(200).json(usuarioRequisitado);
+});
+
+
 
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
@@ -749,10 +780,37 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
   res.status(200).json(novoUsuario);
 })
 
+
+
 //BUSCAR MUSICAS
 
 
+
+
 //EDITAR PLAYLISTS PRIVADAS
+app.put('/usuarios/:id/playlists/:playlistId', (req, res) => {
+  const { nome, musicas } = req.body;
+  const { id, playlistId } = req.params;
+
+  const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id);
+  if (!usuarioRequisitado) {
+    return res.status(404).json({ error: 'Usuário não encontrado.' });
+  }
+
+  const playlistReq = usuarioRequisitado.playlists.find((playlist) => playlist.playlistId == playlistId);
+  if (!playlistReq) {
+    return res.status(404).json({ error: 'Playlist não encontrada.' });
+  }
+
+  playlistReq.nome = nome || playlistReq.nome;
+  playlistReq.musicas = musicas || playlistReq.musicas;
+
+  res.status(200).json(usuarioRequisitado);
+});
+
+
+
+//
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
