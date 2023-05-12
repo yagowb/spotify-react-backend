@@ -1,9 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3001
+const express = require('express');
+const app = express();
 
 
 app.use(express.json());
+
 
 const playlists = [
   {
@@ -817,8 +817,8 @@ app.patch('/usuarios/:id/playlists/:playlistId', (req, res) => {
 
 
 
-//
-
+//INICIANDO SERVIDOR
+const port = 3001;
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Servidor rodando na porta ${port}`)
+});
