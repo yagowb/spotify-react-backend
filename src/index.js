@@ -1,12 +1,9 @@
 const express = require('express')
-const bodyParser = require('body-parser');
 const app = express()
 const port = 3001
 
 
-app.use(express.json())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 const playlists = [
   {
@@ -723,18 +720,18 @@ app.get('/', (req, res) => {
 
 
 
-//LISTAR PLAYLISTS PUBLICAS
+//LISTAR PLAYLISTS PÚBLICAS
 app.get('/playlists', (req, res) => {
   res.json(playlists);
 })
 
 
 
-//LISTAR DETALHES DAS PLAYLISTS PUBLICAS
+//LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
 
 
 
-//CADASTRO DE USUARIO
+//CADASTRO DE USUÁRIO
 
 
 
@@ -782,7 +779,7 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
 
 
 
-//BUSCAR MUSICAS
+//BUSCAR MÚSICAS
 
 
 
