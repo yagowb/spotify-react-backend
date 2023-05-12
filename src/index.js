@@ -780,7 +780,17 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
 
 
 //BUSCAR MÚSICAS
+app.get('/musicas', (req, res) => {
+  const {nome} = req.query;
 
+  const resultadosFiltrados = musicas.filter(item => item.nome.toLowerCase().includes(nome.toLowerCase()));
+  if (!resultadosFiltrados) {
+    return res.status(404).json({ error: 'Musica não encontrada.' });
+  }
+
+  res.status(200).json(resultadosFiltrados);
+  
+})
 
 
 
