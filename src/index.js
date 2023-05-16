@@ -728,7 +728,17 @@ app.get('/playlists', (req, res) => {
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
+app.get('/playlist/:id', (req, res) => {
+  const playlistId = parseInt(req.params.id);
 
+  const playlist = playlists.find(item => item.id == playlistId);
+
+  if (!playlist) {
+    return res.status(404).json({ error: 'Playlist não Encontrado!' });
+  }
+
+  res.status(200).json(playlist);
+});
 
 
 //CADASTRO DE USUÁRIO
