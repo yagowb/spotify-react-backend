@@ -317,143 +317,18 @@ const usuarios = [
     nome: "Andre28ap",
     email: "andre28ap@gmail.com",
     senha: "1234",
-    playlists: [
-      {
-        nome: "teste7",
-        musicas: [
-          {
-            id: 3,
-            cantor: "Adele",
-            nome: "Hello",
-            track: "../sounds/Adele_Hello.mp3"
-          },
-          {
-            id: 17,
-            cantor: "The Beatles",
-            nome: "Help!",
-            track: "../sounds/The_Beatlhes_Help.mp3"
-          }
-        ]
-      },
-      {
-        nome: "teste3",
-        musicas: [
-          {
-            id: 21,
-            cantor: "Michael Jackson",
-            nome: "Billie Jean",
-            track: "../sounds/Michael_Jackson_BillieJean.mp3"
-          }
-        ]
-      },
-      {
-        nome: "teste4",
-        musicas: [
-          {
-            id: 5,
-            cantor: "Adele",
-            nome: "Rolling in the Deep",
-            track: "../sounds/Adele_Rolling_in_the_Deep.mp3"
-          },
-          {
-            id: 9,
-            cantor: "Queen",
-            nome: "Radio Ga Ga",
-            track: "../sounds/Queen_Radio_Ga_Ga.mp3"
-          }
-        ]
-      },
-      {
-        nome: "teste5",
-        musicas: [
-          {
-            id: 12,
-            cantor: "ColdPlay",
-            nome: "Yellow",
-            track: "../sounds/Coldplay_Yellow.mp3"
-          },
-          {
-            id: 14,
-            cantor: "ColdPlay",
-            nome: "Clocks",
-            track: "../sounds/Coldplay_Clocks.mp3"
-          }
-        ]
-      },
-      {
-        nome: "teste6",
-        musicas: [
-          {
-            id: 23,
-            cantor: "Michael Jackson",
-            nome: "Dont Stop Til You Get Enough",
-            track: "../sounds/Michael_Jackson_Dont_Stop_Til_You_Get_Enough.mp3"
-          },
-          {
-            id: 26,
-            cantor: "Seu Jorge",
-            nome: "Amiga da Minha Mulher",
-            track: "../sounds/Seu_Jorge_Amiga_da_minha_mulher.mp3"
-          },
-          {
-            id: 27,
-            cantor: "Seu Jorge",
-            nome: "Burguesinha",
-            track: "../sounds/Seu_Jorge_Burguesinha.mp3"
-          }
-        ]
-      }
-    ],
     id: 1
   },
   {
     nome: "daniel37",
     email: "d37@d.com",
     senha: "123123",
-    playlists: [
-      {
-        nome: "teste0",
-        musicas: [
-          {
-            id: 14,
-            cantor: "ColdPlay",
-            nome: "Clocks",
-            track: "../sounds/Coldplay_Clocks.mp3"
-          },
-          {
-            id: 12,
-            cantor: "ColdPlay",
-            nome: "Yellow",
-            track: "../sounds/Coldplay_Yellow.mp3"
-          }
-        ]
-      }
-    ],
     id: 2
   },
   {
     nome: "Yago",
     email: "abba@bol.com",
     senha: "123405",
-    playlists: [
-      {
-        nome: "músicas pop",
-        musicas: [
-          {
-            id: 3,
-            cantor: "Adele",
-            nome: "Hello",
-            track: "../sounds/Adele_Hello.mp3"
-          },
-          {
-            id: 9,
-            cantor: "Queen",
-            nome: "Radio Ga Ga",
-            track: "../sounds/Queen_Radio_Ga_Ga.mp3"
-          }
-        ]
-      }
-    ],
     id: 3
   },
   {
@@ -708,7 +583,141 @@ const musicas = [
   }
 ]
 
-
+const playlistsPrivadas = [
+  {
+    id: 1,
+    idUsuario: 1,
+    nome: "teste7",
+    musicas: [
+      {
+        id: 3,
+        cantor: "Adele",
+        nome: "Hello",
+        track: "../sounds/Adele_Hello.mp3"
+      },
+      {
+        id: 17,
+        cantor: "The Beatles",
+        nome: "Help!",
+        track: "../sounds/The_Beatlhes_Help.mp3"
+      }
+    ]
+  },
+  {
+    id: 2,
+    idUsuario: 1,
+    nome: "teste3",
+    musicas: [
+      {
+        id: 21,
+        cantor: "Michael Jackson",
+        nome: "Billie Jean",
+        track: "../sounds/Michael_Jackson_BillieJean.mp3"
+      }
+    ]
+  },
+  {
+    id: 3,
+    idUsuario: 1,
+    nome: "teste4",
+    musicas: [
+      {
+        id: 5,
+        cantor: "Adele",
+        nome: "Rolling in the Deep",
+        track: "../sounds/Adele_Rolling_in_the_Deep.mp3"
+      },
+      {
+        id: 9,
+        cantor: "Queen",
+        nome: "Radio Ga Ga",
+        track: "../sounds/Queen_Radio_Ga_Ga.mp3"
+      }
+    ]
+  },
+  {
+    id: 4,
+    idUsuario: 1,
+    nome: "teste5",
+    musicas: [
+      {
+        id: 12,
+        cantor: "ColdPlay",
+        nome: "Yellow",
+        track: "../sounds/Coldplay_Yellow.mp3"
+      },
+      {
+        id: 14,
+        cantor: "ColdPlay",
+        nome: "Clocks",
+        track: "../sounds/Coldplay_Clocks.mp3"
+      }
+    ]
+  },
+  {
+    id: 5,
+    idUsuario: 1,
+    nome: "teste6",
+    musicas: [
+      {
+        id: 23,
+        cantor: "Michael Jackson",
+        nome: "Dont Stop Til You Get Enough",
+        track: "../sounds/Michael_Jackson_Dont_Stop_Til_You_Get_Enough.mp3"
+      },
+      {
+        id: 26,
+        cantor: "Seu Jorge",
+        nome: "Amiga da Minha Mulher",
+        track: "../sounds/Seu_Jorge_Amiga_da_minha_mulher.mp3"
+      },
+      {
+        id: 27,
+        cantor: "Seu Jorge",
+        nome: "Burguesinha",
+        track: "../sounds/Seu_Jorge_Burguesinha.mp3"
+      }
+    ]
+  },
+  {
+    id: 6,
+    idUsuario: 2,
+    nome: "teste0",
+    musicas: [
+      {
+        id: 14,
+        cantor: "ColdPlay",
+        nome: "Clocks",
+        track: "../sounds/Coldplay_Clocks.mp3"
+      },
+      {
+        id: 12,
+        cantor: "ColdPlay",
+        nome: "Yellow",
+        track: "../sounds/Coldplay_Yellow.mp3"
+      }
+    ]
+  },
+  {
+    id: 7,
+    idUsuario: 3,
+    nome: "músicas pop",
+    musicas: [
+      {
+        id: 3,
+        cantor: "Adele",
+        nome: "Hello",
+        track: "../sounds/Adele_Hello.mp3"
+      },
+      {
+        id: 9,
+        cantor: "Queen",
+        nome: "Radio Ga Ga",
+        track: "../sounds/Queen_Radio_Ga_Ga.mp3"
+      }
+    ]
+  }
+]
 /*==============*/
 /*    ROTAS     */
 /*==============*/
@@ -742,7 +751,21 @@ app.get('/playlist/:id', (req, res) => {
 
 
 //CADASTRO DE USUÁRIO
+app.post('/usuarios', (req, res) => {
 
+  const maiorId = usuarios.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar o novo
+    return obj.id > max ? obj.id : max;         //usuario no final do vetor
+  }, 0);
+  const novoId = parseInt(maiorId) + 1;//Crio o novoID para o produto novo
+
+  const usuarioNovo = { ...req.body };//Crio o novo produto
+  usuarioNovo.id = novoId; //Fixo o ID do novo produto
+
+  usuarios.push(usuarioNovo)//Coloco no vetor
+
+
+  res.send(usuarioNovo)
+})
 
 
 //LOGIN
@@ -772,7 +795,7 @@ app.patch('/usuarios/:id', (req, res) => {
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
 app.patch('/usuarios/:id/playlists', (req, res) => {
-  const {nome, musicas} = req.body;
+  const { nome, musicas } = req.body;
   const { id } = req.params;
 
   const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id)
@@ -780,18 +803,16 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  const novoUsuario = {...usuarioRequisitado}
-  novoUsuario.playlists = novoUsuario.playlists || [];
-  novoUsuario.playlists.push({nome: nome, musicas: musicas})
-  
-  res.status(200).json(novoUsuario);
+  usuarioRequisitado.playlists.push({ nome: nome, musicas: musicas })
+
+  res.status(200).json(usuarioRequisitado);
 })
 
 
 
 //BUSCAR MÚSICAS
 app.get('/musicas', (req, res) => {
-  const {nome} = req.query;
+  const { nome } = req.query;
 
   const resultadosFiltrados = musicas.filter(item => item.nome.toLowerCase().includes(nome.toLowerCase()));
   if (!resultadosFiltrados) {
@@ -799,7 +820,7 @@ app.get('/musicas', (req, res) => {
   }
 
   res.status(200).json(resultadosFiltrados);
-  
+
 })
 
 
