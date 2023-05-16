@@ -751,21 +751,6 @@ app.get('/playlist/:id', (req, res) => {
 
 
 //CADASTRO DE USUÁRIO
-app.post('/usuarios', (req, res) => {
-
-  const maiorId = usuarios.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar o novo
-    return obj.id > max ? obj.id : max;         //usuario no final do vetor
-  }, 0);
-  const novoId = parseInt(maiorId) + 1;//Crio o novoID para o produto novo
-
-  const usuarioNovo = { ...req.body };//Crio o novo produto
-  usuarioNovo.id = novoId; //Fixo o ID do novo produto
-
-  usuarios.push(usuarioNovo)//Coloco no vetor
-
-
-  res.send(usuarioNovo)
-})
 
 
 //LOGIN
