@@ -761,11 +761,34 @@ app.get('/playlists/:id', (req, res) => {
 
 
 //CADASTRO DE USUÁRIO
+app.post('/usuarios', (req, res) => {
+  const { nome, email, senha } = req.body;
 
+  const usuarioExistente = usuarios.find((usuario) => usuario.email === email);
+  if (usuarioExistente) {
+    return res.status(400).json({ error: 'E-mail já cadastrado.' });
+  }
+
+  const id = (usuarios.length + 1).toString();
+
+  const novoUsuario = { nome, email, senha, id };
+
+  usuarios.push(novoUsuario);
+
+  res.status(200).json(novoUsuario);
+});
 
 //LOGIN
+app.post('/login', (req, res) => {
+  const { email, senha } = req.body;
 
-
+  const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
+  if (!usuario) {
+    return res.status(401).json({ error: 'Credenciais inválidas.' });
+  }
+ 
+  res.status(200).json({usuario});
+});
 
 
 //EDITAR PERFIL
