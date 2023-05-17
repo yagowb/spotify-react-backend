@@ -718,6 +718,7 @@ const playlistsPrivadas = [
     ]
   }
 ]
+
 /*==============*/
 /*    ROTAS     */
 /*==============*/
@@ -734,11 +735,25 @@ app.get('/playlists', (req, res) => {
   res.json(playlists);
 })
 
+//LISTAR USUARIOS
+app.get('/usuarios', (req, res) => {
+  res.json(usuarios);
+})
+
+//LISTAR MUSICAS
+app.get('/musicas', (req, res) => {
+  res.json(musicas);
+})
+
+//LISTAR PLAYLISTS PRIVADAS
+app.get('/playlistsPrivadas', (req, res) => {
+  res.json(playlistsPrivadas);
+})
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
-app.get('/playlist/:id', (req, res) => {
-  const playlistId = parseInt(req.params.id);
+app.get('/playlists/:id', (req, res) => {
+  const {playlistId} = req.params;
 
   const playlist = playlists.find(item => item.id == playlistId);
 
@@ -779,7 +794,7 @@ app.patch('/usuarios/:id', (req, res) => {
 
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
-app.patch('/usuarios/:id/playlists', (req, res) => {
+app.post('/usuarios/:id/playlists', (req, res) => {
   const { nome, musicas } = req.body;
   const { id } = req.params;
 
@@ -788,9 +803,11 @@ app.patch('/usuarios/:id/playlists', (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  usuarioRequisitado.playlists.push({ nome: nome, musicas: musicas })
 
-  res.status(200).json(usuarioRequisitado);
+  const novaPlaylist = {idUsuario: id, nome, musicas}
+  playlistsPrivadas.push(novaPlaylist);
+
+  res.status(200).json(playlistsPrivadas);
 })
 
 
