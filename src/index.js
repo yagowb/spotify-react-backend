@@ -842,8 +842,8 @@ app.patch('/usuarios/:id/playlists/:playlistId', (req, res) => {
     return res.status(404).json({ error: 'Playlist não encontrada.' });
   }
 
-  playlistReq.nome = nome || playlistReq.nome;
-  playlistReq.musicas = musicas || playlistReq.musicas;
+  // playlistReq.nome = nome || playlistReq.nome;
+  // playlistReq.musicas = musicas || playlistReq.musicas;
 
   res.status(200).json(usuarioRequisitado);
 });
