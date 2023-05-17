@@ -837,15 +837,15 @@ app.patch('/usuarios/:id/playlists/:playlistId', (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  const playlistReq = usuarioRequisitado.playlists.find((playlist) => playlist.playlistId == playlistId);
+  const playlistReq = playlistsPrivadas.find((playlist) => playlist.id == playlistId);
   if (!playlistReq) {
     return res.status(404).json({ error: 'Playlist não encontrada.' });
   }
 
-  // playlistReq.nome = nome || playlistReq.nome;
-  // playlistReq.musicas = musicas || playlistReq.musicas;
+  playlistReq.nome = nome
+  playlistReq.musicas = musicas;
 
-  res.status(200).json(usuarioRequisitado);
+  res.status(200).json(playlistReq);
 });
 
 
