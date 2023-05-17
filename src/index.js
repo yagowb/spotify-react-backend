@@ -753,9 +753,9 @@ app.get('/playlistsPrivadas', (req, res) => {
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
 app.get('/playlists/:id', (req, res) => {
-  const {playlistId} = req.params;
+  const { id } = req.params;
 
-  const playlist = playlists.find(item => item.id == playlistId);
+  const playlist = playlists.find(item => item.id == id);
 
   if (!playlist) {
     return res.status(404).json({ error: 'Playlist não Encontrado!' });
