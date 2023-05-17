@@ -740,11 +740,6 @@ app.get('/usuarios', (req, res) => {
   res.json(usuarios);
 })
 
-//LISTAR MUSICAS
-app.get('/musicas', (req, res) => {
-  res.json(musicas);
-})
-
 //LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', (req, res) => {
   res.json(playlistsPrivadas);
