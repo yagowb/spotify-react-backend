@@ -10,17 +10,17 @@ O express.json() é um middleware do Express que permite a análise do corpo das
 
 ## Rotas:
 
-Rota: /<br />
+Rota: '/'<br />
 Método: GET<br />
 Descrição: Retorna uma mensagem “Backend TocaPlay”.<br />
 Resposta de Sucesso: JSON com a mensagem.<br />
 <br />
-Rota: /playlists<br />
+Rota: '/playlists'<br />
 Método: GET<br />
 Descrição: Retorna todas as playlists públicas.<br />
 Resposta de Sucesso: JSON com as playlists públicas.<br />
 <br />
-Rota: /usuarios<br />
+Rota: '/usuarios'<br />
 Método: GET<br />
 Descrição: Retorna todos os usuários.<br />
 Resposta de Sucesso: JSON com os usuários.<br />
@@ -36,14 +36,14 @@ Descrição: Retorna os detalhes de uma playlist pública com base no ID forneci
 Parâmetro de URL: id (ID da playlist)<br />
 Resposta de Sucesso: JSON com os detalhes da playlist.<br />
 <br />
-Rota: /usuarios<br />
+Rota: '/usuarios'<br />
 Método: POST<br />
 Descrição: Cadastra um novo usuário.<br />
 Parâmetros:<br />
 req.body: Objeto contendo os dados do novo usuário (nome, email, senha).<br />
 Resposta de Sucesso: JSON contendo os dados do novo usuário cadastrado.<br />
 <br />
-Rota: /usuarios<br />
+Rota: '/usuarios'<br />
 Método: GET<br />
 Descrição: Realiza o login do usuário.<br />
 Parâmetros:<br />
