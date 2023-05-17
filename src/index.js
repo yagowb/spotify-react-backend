@@ -769,9 +769,7 @@ app.post('/usuarios', (req, res) => {
     return res.status(400).json({ error: 'E-mail já cadastrado.' });
   }
 
-  const id = (usuarios.length + 1).toString();
-
-  const novoUsuario = { nome, email, senha, id };
+  const novoUsuario = { nome, email, senha};
 
   usuarios.push(novoUsuario);
 
@@ -779,15 +777,15 @@ app.post('/usuarios', (req, res) => {
 });
 
 //LOGIN
-app.post('/login', (req, res) => {
-  const { email, senha } = req.body;
+app.get('/usuarios', (req, res) => {
+  const { email, senha } = req.query;
 
   const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
   if (!usuario) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
- 
-  res.status(200).json({usuario});
+
+  res.status(200).json({ usuario });
 });
 
 
