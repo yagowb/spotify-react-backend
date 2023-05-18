@@ -727,6 +727,8 @@ app.get('/', (req, res) => {
   res.json('Backend TocaPlay');
 })
 
+
+//LISTAR TODOS OS USUÁRIOS
 app.get('/usuarios/usuarios', (req, res) => {
   res.json(usuarios)
 })
