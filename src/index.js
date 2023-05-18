@@ -735,10 +735,7 @@ app.get('/playlists', (req, res) => {
   res.json(playlists);
 })
 
-//LISTAR USUARIOS
-app.get('/usuarios', (req, res) => {
-  res.json(usuarios);
-})
+
 
 //LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', (req, res) => {
@@ -779,6 +776,10 @@ app.post('/usuarios', (req, res) => {
 //LOGIN
 app.get('/usuarios', (req, res) => {
   const { email, senha } = req.query;
+
+  if (!email || !senha) {
+    return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
+  }
 
   const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
   if (!usuario) {
