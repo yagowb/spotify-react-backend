@@ -773,6 +773,7 @@ app.post('/usuarios', (req, res) => {
   res.status(200).json(novoUsuario);
 });
 
+
 //LOGIN
 app.get('/usuarios', (req, res) => {
   const { email, senha } = req.query;
