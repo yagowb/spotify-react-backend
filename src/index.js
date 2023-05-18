@@ -725,7 +725,7 @@ const playlistsPrivadas = [
 
 
 app.get('/', (req, res) => {
-  res.json('Backend TocaPlay');
+  res.json('Teste Backend TocaPlay');
 })
 
 
