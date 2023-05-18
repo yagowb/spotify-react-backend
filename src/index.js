@@ -335,7 +335,6 @@ const usuarios = [
     nome: "Yago",
     email: "yago@bol.com",
     senha: "espada",
-    playlists: [],
     id: 4
   }
 ]
@@ -725,10 +724,12 @@ const playlistsPrivadas = [
 
 
 app.get('/', (req, res) => {
-  res.json('Teste Backend TocaPlay');
+  res.json('Backend TocaPlay');
 })
 
-
+app.get('/usuarios/usuarios', (req, res) => {
+  res.json(usuarios)
+})
 
 //LISTAR PLAYLISTS PÚBLICAS
 app.get('/playlists', (req, res) => {
@@ -750,7 +751,7 @@ app.get('/playlists/:id', (req, res) => {
   const playlist = playlists.find(item => item.id == id);
 
   if (!playlist) {
-    return res.status(404).json({ error: 'Playlist não Encontrada!' });
+    return res.status(404).json({ error: 'Playlist não Encontrado!' });
   }
 
   res.status(200).json(playlist);
@@ -766,13 +767,17 @@ app.post('/usuarios', (req, res) => {
     return res.status(400).json({ error: 'E-mail já cadastrado.' });
   }
 
-  const novoUsuario = { nome, email, senha};
+  const maiorId = usuarios.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar a nova
+    return obj.id > max ? obj.id : max;                   //playlistsPrivada no final do vetor
+  }, 0);
+  const novoId = parseInt(maiorId) + 1;//Crio o novoID para a playlistsPrivada nova
+
+  const novoUsuario = {id: novoId, nome, email, senha};
 
   usuarios.push(novoUsuario);
 
   res.status(200).json(novoUsuario);
 });
-
 
 //LOGIN
 app.get('/usuarios', (req, res) => {
@@ -787,7 +792,7 @@ app.get('/usuarios', (req, res) => {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
 
-  res.status(200).json({ usuario });
+  res.status(200).json( usuario );
 });
 
 
@@ -821,8 +826,12 @@ app.post('/usuarios/:id/playlists', (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
+  const maiorId = playlistsPrivadas.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar a nova
+    return obj.id > max ? obj.id : max;                   //playlistsPrivada no final do vetor
+  }, 0);
+  const novoId = parseInt(maiorId) + 1;//Crio o novoID para a playlistsPrivada nova
 
-  const novaPlaylist = {idUsuario: id, nome, musicas}
+  const novaPlaylist = {id: novoId, idUsuario: id, nome, musicas}
   playlistsPrivadas.push(novaPlaylist);
 
   res.status(200).json(playlistsPrivadas);
