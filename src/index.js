@@ -750,7 +750,7 @@ app.get('/playlists/:id', (req, res) => {
   const playlist = playlists.find(item => item.id == id);
 
   if (!playlist) {
-    return res.status(404).json({ error: 'Playlist não Encontrado!' });
+    return res.status(404).json({ error: 'Playlist não Encontrada!' });
   }
 
   res.status(200).json(playlist);
