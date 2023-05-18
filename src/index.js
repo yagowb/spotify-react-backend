@@ -786,7 +786,7 @@ app.get('/usuarios', (req, res) => {
 
   if (!email || !senha) {
     return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
-  }
+  } //autenticação email e senha
 
   const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
   if (!usuario) {
@@ -830,7 +830,7 @@ app.post('/usuarios/:id/playlists', (req, res) => {
   const maiorId = playlistsPrivadas.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar a nova
     return obj.id > max ? obj.id : max;                   //playlistsPrivada no final do vetor
   }, 0);
-  const novoId = parseInt(maiorId) + 1;//Crio o novoID para a playlistsPrivada nova
+  const novoId = parseInt(maiorId) + 1; //Crio o novoID para a playlistsPrivada nova
 
   const novaPlaylist = {id: novoId, idUsuario: id, nome, musicas}
   playlistsPrivadas.push(novaPlaylist);
