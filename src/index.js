@@ -739,7 +739,6 @@ app.get('/playlists', (req, res) => {
 })
 
 
-
 //LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', (req, res) => {
   res.json(playlistsPrivadas);
@@ -769,10 +768,10 @@ app.post('/usuarios', (req, res) => {
     return res.status(400).json({ error: 'E-mail já cadastrado.' });
   }
 
-  const maiorId = usuarios.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar a nova
-    return obj.id > max ? obj.id : max;                   //playlistsPrivada no final do vetor
+  const maiorId = usuarios.reduce((max, obj) => { 
+    return obj.id > max ? obj.id : max;                   
   }, 0);
-  const novoId = parseInt(maiorId) + 1;//Crio o novoID para a playlistsPrivada nova
+  const novoId = parseInt(maiorId) + 1;
 
   const novoUsuario = {id: novoId, nome, email, senha};
 
@@ -788,7 +787,7 @@ app.get('/usuarios', (req, res) => {
 
   if (!email || !senha) {
     return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
-  } //autenticação email e senha
+  } 
 
   const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
   if (!usuario) {
@@ -872,8 +871,8 @@ app.patch('/usuarios/:id/playlists/:playlistId', (req, res) => {
     return res.status(404).json({ error: 'Playlist não encontrada.' });
   }
 
-  playlistReq.nome = nome
-  playlistReq.musicas = musicas;
+  playlistReq.nome = nome || playlistReq.nome;
+  playlistReq.musicas = musicas || playlistReq.musicas;
 
   res.status(200).json(playlistReq);
 });
