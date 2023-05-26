@@ -732,20 +732,24 @@ app.get('/', (req, res) => {
 //LISTAR TODOS OS USUÁRIOS
 app.get('/usuarios/usuarios', async (req, res) => {
   await client.connect();
-  const plays = await client.db("spotify").collection("playlists").find().toArray();
-  res.json(plays)
+  const usuarios = await client.db("spotify").collection("playlists").find().toArray();
+  res.json(usuarios)
 })
 
-//LISTAR PLAYLISTS PÚBLICAS
-app.get('/playlists', (req, res) => {
-  res.json(playlists);
-})
+// LISTAR PLAYLISTS PÚBLICAS
+app.get('/playlists', async (req, res) => {
+  await client.connect();
+  const publicPlaylists = await client.db("spotify").collection("playlists").find().toArray();
+  res.json(publicPlaylists);
+});
 
+// LISTAR PLAYLISTS PRIVADAS
+app.get('/playlistsPrivadas', async (req, res) => {
+  await client.connect();
+  const privatePlaylists = await client.db("spotify").collection("playlists").find({ public: false }).toArray();
+  res.json(privatePlaylists);
+});
 
-//LISTAR PLAYLISTS PRIVADAS
-app.get('/playlistsPrivadas', (req, res) => {
-  res.json(playlistsPrivadas);
-})
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
