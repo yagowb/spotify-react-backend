@@ -769,22 +769,22 @@ app.get('/playlists/:id', async (req, res) => {
 
 
 //CADASTRO DE USUÁRIO
-app.post('/usuarios', (req, res) => {
+app.post('/usuarios', async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  const usuarioExistente = usuarios.find((usuario) => usuario.email === email);
+  await client.connect();
+  const usuarioExistente = await client.db("spotify").collection("usuarios").findOne({ email });
+
   if (usuarioExistente) {
     return res.status(400).json({ error: 'E-mail já cadastrado.' });
   }
 
-  const maiorId = usuarios.reduce((max, obj) => { 
-    return obj.id > max ? obj.id : max;                   
-  }, 0);
-  const novoId = parseInt(maiorId) + 1;
+  const maiorId = await client.db("spotify").collection("usuarios").find().sort({ id: -1 }).limit(1).toArray();
+  const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
 
-  const novoUsuario = {id: novoId, nome, email, senha};
+  const novoUsuario = { id: novoId, nome, email, senha };
 
-  usuarios.push(novoUsuario);
+  await client.db("spotify").collection("usuarios").insertOne(novoUsuario);
 
   res.status(200).json(novoUsuario);
 });
