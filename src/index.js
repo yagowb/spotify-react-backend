@@ -856,25 +856,29 @@ app.patch('/usuarios/:id', async (req, res) => {
 
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
-app.post('/usuarios/:id/playlists', (req, res) => {
+app.post('/usuarios/:id/playlists', async (req, res) => {
   const { nome, musicas } = req.body;
   const { id } = req.params;
 
-  const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id)
+  await client.connect();
+  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
+
   if (!usuarioRequisitado) {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  const maiorId = playlistsPrivadas.reduce((max, obj) => { //eu encontro o maiorID para eu acrescentar a nova
-    return obj.id > max ? obj.id : max;                   //playlistsPrivada no final do vetor
-  }, 0);
-  const novoId = parseInt(maiorId) + 1; //Crio o novoID para a playlistsPrivada nova
+  const maiorId = await client.db("spotify").collection("playlistsPrivadas").find().sort({ id: -1 }).limit(1).toArray();
+  const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
 
-  const novaPlaylist = {id: novoId, idUsuario: id, nome, musicas}
-  playlistsPrivadas.push(novaPlaylist);
+  const novaPlaylist = { id: novoId, idUsuario: id, nome, musicas };
 
-  res.status(200).json(playlistsPrivadas);
-})
+  await client.db("spotify").collection("playlistsPrivadas").insertOne(novaPlaylist);
+
+  const playlistsPrivadasAtualizadas = await client.db("spotify").collection("playlistsPrivadas").find().toArray();
+
+  res.status(200).json(playlistsPrivadasAtualizadas);
+});
+
 
 
 
