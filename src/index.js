@@ -768,6 +768,24 @@ app.get('/playlists/:id', async (req, res) => {
 
 
 
+//BUSCAR MÚSICAS
+app.get('/musicas', async (req, res) => {
+  const { nome } = req.query;
+
+  await client.connect();
+  const resultadosFiltrados = await client.db("spotify").collection("musicas")
+    .find({ nome: { $regex: nome, $options: 'i' } }).toArray();
+
+
+    if (!resultadosFiltrados || resultadosFiltrados.length === 0) {
+      return res.status(404).json({ error: 'Música não encontrada.' });
+    }
+  
+    res.status(200).json(resultadosFiltrados);
+})
+
+
+
 //CADASTRO DE USUÁRIO
 app.post('/usuarios', async (req, res) => {
   const { nome, email, senha } = req.body;
@@ -790,6 +808,7 @@ app.post('/usuarios', async (req, res) => {
 });
 
 
+
 // LOGIN
 app.get('/usuarios', async (req, res) => {
   const { email, senha } = req.query;
@@ -810,21 +829,27 @@ app.get('/usuarios', async (req, res) => {
 
 
 
-//EDITAR PERFIL
-app.patch('/usuarios/:id', (req, res) => {
+// EDITAR PERFIL
+app.patch('/usuarios/:id', async (req, res) => {
   const { nome, email, senha } = req.body;
   const { id } = req.params;
 
-  const usuarioRequisitado = usuarios.find((usuario) => usuario.id == id);
+  await client.connect();
+  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
+
   if (!usuarioRequisitado) {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  usuarioRequisitado.nome = nome || usuarioRequisitado.nome;
-  usuarioRequisitado.email = email || usuarioRequisitado.email;
-  usuarioRequisitado.senha = senha || usuarioRequisitado.senha;
+  const novoNome = nome || usuarioRequisitado.nome;
+  const novoEmail = email || usuarioRequisitado.email;
+  const novaSenha = senha || usuarioRequisitado.senha;
 
-  res.status(200).json(usuarioRequisitado);
+  await client.db("spotify").collection("usuarios").updateOne({ id }, { $set: { nome: novoNome, email: novoEmail, senha: novaSenha } });
+
+  const usuarioAtualizado = await client.db("spotify").collection("usuarios").findOne({ id });
+
+  res.status(200).json(usuarioAtualizado);
 });
 
 
@@ -849,21 +874,6 @@ app.post('/usuarios/:id/playlists', (req, res) => {
   playlistsPrivadas.push(novaPlaylist);
 
   res.status(200).json(playlistsPrivadas);
-})
-
-
-
-//BUSCAR MÚSICAS
-app.get('/musicas', (req, res) => {
-  const { nome } = req.query;
-
-  const resultadosFiltrados = musicas.filter(item => item.nome.toLowerCase().includes(nome.toLowerCase()));
-  if (!resultadosFiltrados) {
-    return res.status(404).json({ error: 'Musica não encontrada.' });
-  }
-
-  res.status(200).json(resultadosFiltrados);
-
 })
 
 
