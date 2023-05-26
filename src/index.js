@@ -753,17 +753,19 @@ app.get('/playlistsPrivadas', async (req, res) => {
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
-app.get('/playlists/:id', (req, res) => {
+app.get('/playlists/:id', async (req, res) => {
   const { id } = req.params;
 
-  const playlist = playlists.find(item => item.id == id);
+  await client.connect();
+  const playlist = await client.db("spotify").collection("playlists").findOne({ id });
 
   if (!playlist) {
-    return res.status(404).json({ error: 'Playlist não Encontrado!' });
+    return res.status(404).json({ error: 'Playlist não encontrada!' });
   }
 
   res.status(200).json(playlist);
 });
+
 
 
 //CADASTRO DE USUÁRIO
