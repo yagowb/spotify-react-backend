@@ -788,21 +788,24 @@ app.post('/usuarios', (req, res) => {
 });
 
 
-//LOGIN
-app.get('/usuarios', (req, res) => {
+// LOGIN
+app.get('/usuarios', async (req, res) => {
   const { email, senha } = req.query;
 
   if (!email || !senha) {
     return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
-  } 
+  }
 
-  const usuario = usuarios.find((usuario) => usuario.email === email && usuario.senha === senha);
+  await client.connect();
+  const usuario = await client.db("spotify").collection("usuarios").findOne({ email, senha });
+
   if (!usuario) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
 
-  res.status(200).json( usuario );
+  res.status(200).json(usuario);
 });
+
 
 
 //EDITAR PERFIL
