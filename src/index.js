@@ -1,4 +1,5 @@
 const express = require('express');
+const client = require('./db');
 const app = express();
 
 
@@ -729,8 +730,10 @@ app.get('/', (req, res) => {
 
 
 //LISTAR TODOS OS USUÁRIOS
-app.get('/usuarios/usuarios', (req, res) => {
-  res.json(usuarios)
+app.get('/usuarios/usuarios', async (req, res) => {
+  await client.connect();
+  const plays = await client.db("spotify").collection("playlists").find().toArray();
+  res.json(plays)
 })
 
 //LISTAR PLAYLISTS PÚBLICAS
