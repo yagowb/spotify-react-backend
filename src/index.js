@@ -892,7 +892,7 @@ app.post('/usuarios/:id/playlists', async (req, res) => {
   const { id } = req.params;
 
   await client.connect();
-  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
+  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ _id: new ObjectId(id)});
 
   if (!usuarioRequisitado) {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
@@ -924,7 +924,7 @@ app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
    // return res.status(404).json({ error: 'Usuário não encontrado.' });
   //}
 
-  const playlistReq = await client.db("spotify").collection("playlistsPrivadas").findOne({ id: playlistId });
+  const playlistReq = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(playlistId)  });
   if (!playlistReq) {
     return res.status(404).json({ error: 'Playlist não encontrada.' });
   }
@@ -935,7 +935,7 @@ app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
   await client.db("spotify").collection("playlistsPrivadas")
   .updateOne({ id: playlistId }, { $set: { nome: novaNome, musicas: novasMusicas } });
 
-  const playlistPrivadaAtualizada = await client.db("spotify").collection("playlistsPrivadas").findOne({ id: playlistId });
+  const playlistPrivadaAtualizada = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(playlistId) });
 
   res.status(200).json(playlistPrivadaAtualizada);
 });
