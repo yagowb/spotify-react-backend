@@ -811,14 +811,14 @@ app.post('/usuarios', async (req, res) => {
 
 // LOGIN
 app.get('/usuarios', async (req, res) => {
-  const { email, senha } = req.query;
+  const { email } = req.query;
 
-  if (!email || !senha) {
-    return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
+  if (!email) {
+    return res.status(400).json({ error: 'É necessário inserir o email.' });
   }
 
   await client.connect();
-  const usuario = await client.db("spotify").collection("usuarios").findOne({ email, senha });
+  const usuario = await client.db("spotify").collection("usuarios").findOne({ email });
 
   if (!usuario) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
