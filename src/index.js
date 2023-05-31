@@ -746,10 +746,17 @@ app.get('/playlists', async (req, res) => {
 // LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', async (req, res) => {
   await client.connect();
-  const privatePlaylists = await client.db("spotify").collection("playlists").find({ public: false }).toArray();
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").find().toArray();
   res.json(privatePlaylists);
 });
 
+// LISTAR PLAYLISTS PRIVADAS POR ID
+app.get('/playlistsPrivadas/:id', async (req, res) => {
+  const { id } = req.params;
+  await client.connect();
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({id});
+  res.json(privatePlaylists);
+});
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
@@ -883,15 +890,15 @@ app.post('/usuarios/:id/playlists', async (req, res) => {
 
 
 // EDITAR PLAYLISTS PRIVADAS
-app.patch('/usuarios/:id/playlists/:playlistId', async (req, res) => {
+app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
   const { nome, musicas } = req.body;
-  const { id, playlistId } = req.params;
+  const {  playlistId } = req.params;
 
   await client.connect();
-  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
-  if (!usuarioRequisitado) {
-    return res.status(404).json({ error: 'Usuário não encontrado.' });
-  }
+  //const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
+  //if (!usuarioRequisitado) {
+   // return res.status(404).json({ error: 'Usuário não encontrado.' });
+  //}
 
   const playlistReq = await client.db("spotify").collection("playlistsPrivadas").findOne({ id: playlistId });
   if (!playlistReq) {
