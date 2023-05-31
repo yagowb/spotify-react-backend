@@ -752,6 +752,13 @@ app.get('/playlistsPrivadas', async (req, res) => {
   res.json(privatePlaylists);
 });
 
+// LISTAR PLAYLISTS PRIVADAS POR ID
+app.get('/playlistsPrivadas/:id', async (req, res) => {
+  const { id } = req.params;
+  await client.connect();
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({id});
+  res.json(privatePlaylists);
+});
 
 
 //LISTAR DETALHES DAS PLAYLISTS PÚBLICAS
@@ -813,14 +820,14 @@ app.post('/usuarios', async (req, res) => {
 
 // LOGIN
 app.get('/usuarios', async (req, res) => {
-  const { email, senha } = req.query;
+  const { email } = req.query;
 
-  if (!email || !senha) {
-    return res.status(400).json({ error: 'É necessário inserir o email e a senha.' });
+  if (!email) {
+    return res.status(400).json({ error: 'É necessário inserir o email.' });
   }
 
   await client.connect();
-  const usuario = await client.db("spotify").collection("usuarios").findOne({ email, senha });
+  const usuario = await client.db("spotify").collection("usuarios").findOne({ email });
 
   if (!usuario) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
@@ -885,15 +892,15 @@ app.post('/usuarios/:id/playlists', async (req, res) => {
 
 
 // EDITAR PLAYLISTS PRIVADAS
-app.patch('/usuarios/:id/playlists/:playlistId', async (req, res) => {
+app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
   const { nome, musicas } = req.body;
-  const { id, playlistId } = req.params;
+  const {  playlistId } = req.params;
 
   await client.connect();
-  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
-  if (!usuarioRequisitado) {
-    return res.status(404).json({ error: 'Usuário não encontrado.' });
-  }
+  //const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
+  //if (!usuarioRequisitado) {
+   // return res.status(404).json({ error: 'Usuário não encontrado.' });
+  //}
 
   const playlistReq = await client.db("spotify").collection("playlistsPrivadas").findOne({ id: playlistId });
   if (!playlistReq) {
