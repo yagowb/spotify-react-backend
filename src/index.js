@@ -5,6 +5,7 @@ const { ObjectId } = require('mongodb');
 
 
 
+
 app.use(express.json());
 
 
@@ -756,7 +757,7 @@ app.get('/playlistsPrivadas', async (req, res) => {
 app.get('/playlistsPrivadas/:id', async (req, res) => {
   const { id } = req.params;
   await client.connect();
-  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({id});
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(id) });
   res.json(privatePlaylists);
 });
 
@@ -844,8 +845,14 @@ app.patch('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
 
   await client.connect();
-  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
 
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'ID de usuário inválido.' });
+  }
+  
+  const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ _id: new ObjectId(id) });
+
+  
   if (!usuarioRequisitado) {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
@@ -854,9 +861,9 @@ app.patch('/usuarios/:id', async (req, res) => {
   const novoEmail = email || usuarioRequisitado.email;
   const novaSenha = senha || usuarioRequisitado.senha;
 
-  await client.db("spotify").collection("usuarios").updateOne({ id }, { $set: { nome: novoNome, email: novoEmail, senha: novaSenha } });
+  await client.db("spotify").collection("usuarios").updateOne({ _id: new ObjectId(id) }, { $set: { nome: novoNome, email: novoEmail, senha: novaSenha } });
 
-  const usuarioAtualizado = await client.db("spotify").collection("usuarios").findOne({ id });
+  const usuarioAtualizado = await client.db("spotify").collection("usuarios").findOne({ _id: new ObjectId(id) });
 
   res.status(200).json(usuarioAtualizado);
 });
