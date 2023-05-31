@@ -773,7 +773,7 @@ app.get('/playlistsPrivadas', async (req, res) => {
 app.get('/musicas/:id', async (req, res) => {
   await client.connect();
   const { id } = req.params;
-  const publicPlaylists = await client.db("spotify").collection("musicas").findOne({id}) ;
+  const publicPlaylists = await client.db("spotify").collection("musicas").findOne({ _id: new ObjectId(id) }) ;
   res.json(publicPlaylists);
 });
 
