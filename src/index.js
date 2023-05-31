@@ -1,6 +1,8 @@
 const express = require('express');
 const client = require('./db');
 const app = express();
+const { ObjectId } = require('mongodb');
+
 
 
 app.use(express.json());
@@ -732,7 +734,7 @@ app.get('/', (req, res) => {
 //LISTAR TODOS OS USUÁRIOS
 app.get('/usuarios/usuarios', async (req, res) => {
   await client.connect();
-  const usuarios = await client.db("spotify").collection("playlists").find().toArray();
+  const usuarios = await client.db("spotify").collection("usuarios").find().toArray();
   res.json(usuarios)
 })
 
@@ -746,7 +748,7 @@ app.get('/playlists', async (req, res) => {
 // LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', async (req, res) => {
   await client.connect();
-  const privatePlaylists = await client.db("spotify").collection("playlists").find({ public: false }).toArray();
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").find().toArray();
   res.json(privatePlaylists);
 });
 
@@ -757,7 +759,7 @@ app.get('/playlists/:id', async (req, res) => {
   const { id } = req.params;
 
   await client.connect();
-  const playlist = await client.db("spotify").collection("playlists").findOne({ id });
+  const playlist = await client.db("spotify").collection("playlists").findOne({ _id: new ObjectId(id) });
 
   if (!playlist) {
     return res.status(404).json({ error: 'Playlist não encontrada!' });
