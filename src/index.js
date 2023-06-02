@@ -35,6 +35,13 @@ app.get('/playlists', async (req, res) => {
   res.json(publicPlaylists);
 });
 
+// LISTAR MUSICAS
+app.get('/musicas', async (req, res) => {
+  await client.connect();
+  const musicas = await client.db("spotify").collection("musicas").find().toArray();
+  res.json(musicas);
+});
+
 // LISTAR PLAYLISTS PRIVADAS
 app.get('/playlistsPrivadas', async (req, res) => {
   await client.connect();
@@ -45,6 +52,7 @@ app.get('/playlistsPrivadas', async (req, res) => {
 // LISTAR PLAYLISTS PRIVADAS POR ID
 app.get('/playlistsPrivadas/:id', async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   await client.connect();
   const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(id) });
   res.json(privatePlaylists);
@@ -187,10 +195,10 @@ app.post('/usuarios/:id/playlistsPrivadas', async (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  const maiorId = await client.db("spotify").collection("playlistsPrivadas").find().sort({ id: -1 }).limit(1).toArray();
-  const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
+  //const maiorId = await client.db("spotify").collection("playlistsPrivadas").find().sort({ id: -1 }).limit(1).toArray();
+  //const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
 
-  const novaPlaylist = { id: novoId, idUsuario: id, nome, musicas };
+  const novaPlaylist = { idUsuario: id, nome, musicas };
 
   await client.db("spotify").collection("playlistsPrivadas").insertOne(novaPlaylist);
 
