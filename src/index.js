@@ -887,7 +887,7 @@ app.patch('/usuarios/:id', async (req, res) => {
 
 
 //CADASTRO DAS PLAYLISTS PRIVADAS
-app.post('/usuarios/:id/playlists', async (req, res) => {
+app.post('/usuarios/:id/playlistsPrivadas', async (req, res) => {
   const { nome, musicas } = req.body;
   const { id } = req.params;
 
