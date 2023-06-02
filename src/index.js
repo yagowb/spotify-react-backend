@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const client = require('./db');
 const app = express();
 const { ObjectId } = require('mongodb');
@@ -7,6 +8,7 @@ const { ObjectId } = require('mongodb');
 
 
 app.use(express.json());
+app.use(cors())
 
 
 /*==============*/
