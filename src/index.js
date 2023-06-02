@@ -52,7 +52,6 @@ app.get('/playlistsPrivadas', async (req, res) => {
 // LISTAR PLAYLISTS PRIVADAS POR ID
 app.get('/playlistsPrivadas/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id)
   await client.connect();
   const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(id) });
   res.json(privatePlaylists);
