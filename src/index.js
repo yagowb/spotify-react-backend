@@ -229,7 +229,7 @@ app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
   const novasMusicas = musicas || playlistReq.musicas;
 
   await client.db("spotify").collection("playlistsPrivadas")
-  .updateOne({ id: playlistId }, { $set: { nome: novaNome, musicas: novasMusicas } });
+  .updateOne({ _id: new ObjectId(playlistId) }, { $set: { nome: novaNome, musicas: novasMusicas } });
 
   const playlistPrivadaAtualizada = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(playlistId) });
 
