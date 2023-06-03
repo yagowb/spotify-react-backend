@@ -43,7 +43,7 @@ app.get('/musicas', async (req, res) => {
 });
 
 // LISTAR PLAYLISTS PRIVADAS
-app.get('/playlistsPrivadas', async (req, res) => {
+app.get('/playlistsPrivadas/playlistsPrivadas', async (req, res) => {
   await client.connect();
   const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").find().toArray();
   res.json(privatePlaylists);
@@ -61,7 +61,7 @@ app.get('/playlistsPrivadas/:id', async (req, res) => {
 app.get('/playlistsPrivadas', async (req, res) => {
   const { idUsuario } = req.query;
   await client.connect();
-  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").find({idUsuario}).toArray();
+  const privatePlaylists = await client.db("spotify").collection("playlistsPrivadas").find({ idUsuario: idUsuario }).toArray();
   res.json(privatePlaylists);
 });
 
