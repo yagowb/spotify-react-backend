@@ -1,85 +1,84 @@
-# Documentação do Projeto
 
-O código é um backend simples para uma aplicação TocaPlay.
-Utiliza o framework Express para definir rotas e manipular as requisições HTTP.
+##   TocaPlay Backend
 
-O express.json() é um middleware do Express que permite a análise do corpo das requisições como JSON.
+Este é o código backend para o TocaPlay, um projeto de portal de música desenvolvido em Node.js para o curso de Desenvolvimento para Plataformas Web - UNIFOR 2023.1.
 
-===========================================================================
+### Tecnologias Utilizadas
 
+-   Node.js
+-   Express.js
+-   MongoDB
 
-## Rotas:
+### Instalação
 
-Rota: '/'<br />
-Método: GET<br />
-Descrição: Retorna uma mensagem “Backend TocaPlay”.<br />
-Resposta de Sucesso: JSON com a mensagem.<br />
-<br />
-Rota: '/playlists'<br />
-Método: GET<br />
-Descrição: Retorna todas as playlists públicas.<br />
-Resposta de Sucesso: JSON com as playlists públicas.<br />
-<br />
-Rota: '/usuarios'<br />
-Método: GET<br />
-Descrição: Retorna todos os usuários.<br />
-Resposta de Sucesso: JSON com os usuários.<br />
-<br />
-Rota: '/playlistsPrivadas'<br />
-Método: GET<br />
-Descrição: Retorna todas as playlists privadas.<br />
-Resposta de Sucesso: JSON com as playlists privadas.<br />
-<br />
-Rota: '/playlists/:id'<br />
-Método: GET<br />
-Descrição: Retorna os detalhes de uma playlist pública com base no ID fornecido.<br />
-Parâmetro de URL: id (ID da playlist)<br />
-Resposta de Sucesso: JSON com os detalhes da playlist.<br />
-<br />
-Rota: '/usuarios'<br />
-Método: POST<br />
-Descrição: Cadastra um novo usuário.<br />
-Parâmetros:<br />
-req.body: Objeto contendo os dados do novo usuário (nome, email, senha).<br />
-Resposta de Sucesso: JSON contendo os dados do novo usuário cadastrado.<br />
-<br />
-Rota: '/usuarios'<br />
-Método: GET<br />
-Descrição: Realiza o login do usuário.<br />
-Parâmetros:<br />
-    email (query parameter): O email do usuário.<br />
-senha (query parameter): A senha do usuário.<br />
-Resposta de Sucesso: JSON contendo os dados do usuário logado.<br />
-<br />
-Rota: '/usuarios/:id'<br />
-Método: PATCH<br />
-Descrição: Edita o perfil de um usuário com base no ID fornecido.<br />
-Parâmetro de URL: id (ID do usuário)<br />
-Corpo da Requisição: JSON com as propriedades nome, email e/ou senha a serem atualizadas.<br />
-Resposta de Sucesso: JSON com o perfil do usuário atualizado.<br />
-<br />
-Rota: '/usuarios/:id/playlists'<br />
-Método: POST<br />
-Descrição: Cria uma nova playlist privada para um usuário com base no ID fornecido.<br />
-Parâmetro de URL: id (ID do usuário)<br />
-Corpo da Requisição: JSON com as propriedades nome e musicas da nova playlist.<br />
-Resposta de Sucesso: JSON com as playlists privadas atualizadas.<br />
-<br />
-Rota: '/musicas'<br />
-Método: GET<br />
-Descrição: Busca músicas com base no nome fornecido.<br />
-Parâmetros de Consulta: nome (nome da música)<br />
-Resposta de Sucesso: JSON com as músicas filtradas.<br />
-<br />
-Rota: '/usuarios/:id/playlists/:playlistId'<br />
-Método: PATCH<br />
-Descrição: Edita uma playlist privada de um usuário com base no ID da playlist e no ID do usuário fornecidos.<br />
-Parâmetros de URL: id (ID do usuário), playlistId (ID da playlist)<br />
-Corpo da Requisição: JSON com as propriedades nome e/ou musicas a serem atualizadas na playlist.<br />
-Resposta de Sucesso: JSON com a playlist privada atualizada.<br />
-<br />
-Rota: '/'<br />
-Método: LISTEN<br />
-Descrição: Inicia o servidor e imprime a porta em que está rodando.<br />
-O servidor é iniciado na porta 3001.<br />
+Para executar o backend do TocaPlay localmente, siga estas etapas:
 
+1.  Clone este repositório em sua máquina local.
+    
+
+    
+    `git clone https://github.com/seu-nome-de-usuario/tocaplay-backend` 
+    
+2.  Certifique-se de ter o Node.js instalado em sua máquina. Para obter mais informações sobre como instalar o Node.js, visite: [https://nodejs.org](https://nodejs.org/)
+    
+3.  Instale as dependências necessárias navegando até o diretório do projeto e executando o seguinte comando:
+    
+
+    
+    `npm install` 
+    
+4.  Configure um banco de dados MongoDB e atualize a string de conexão no arquivo `db.js`, ou faça a inserção dos dados do mesmo.
+    
+5.  Inicie o servidor:
+    
+
+    
+    `npm start` 
+    
+6.  O servidor backend deve estar em execução em `http://localhost:3001`.
+    
+
+### Rotas da API
+
+-   `GET /`: Retorna uma mensagem simples indicando que o backend do TocaPlay está em execução.
+    
+-   `GET /usuarios/usuarios`: Recupera todos os usuários da coleção "usuarios".
+    
+-   `GET /playlists`: Recupera todas as playlists públicas da coleção "playlists".
+    
+-   `GET /musicas`: Recupera todas as músicas da coleção "musicas".
+    
+-   `GET /playlistsPrivadas/playlistsPrivadas`: Recupera todas as playlists privadas da coleção "playlistsPrivadas".
+    
+-   `GET /playlistsPrivadas/:id`: Recupera uma playlist privada pelo seu ID.
+    
+-   `GET /playlistsPrivadas`: Recupera playlists privadas pelo ID do usuário.
+    
+-   `GET /musicas/:id`: Recupera uma música pelo seu ID.
+    
+-   `GET /playlists/:id`: Recupera detalhes de uma playlist pelo seu ID.
+    
+-   `GET /musicas?nome=<nome>`: Pesquisa músicas pelo nome.
+    
+-   `POST /usuarios`: Cria um novo usuário.
+    
+-   `GET /usuarios?email=<email>`: Faz login de um usuário pelo e-mail.
+    
+-   `PATCH /usuarios/:id`: Atualiza o perfil de um usuário pelo ID.
+    
+-   `POST /usuarios/:id/playlistsPrivadas`: Cria uma nova playlist privada para um usuário.
+    
+-   `PATCH /playlistsPrivadas/:playlistId`: Atualiza uma playlist privada pelo seu ID.
+    
+
+### Contribuição
+
+Contribuições são bem-vindas! Se você deseja melhorar o backend do TocaPlay, sinta-se à vontade para enviar pull requests. Certifique-se de discutir quaisquer alterações importantes antes de enviá-las.
+
+### Licença
+
+Este projeto está licenciado sob a [Licença MIT]. Sinta-se à vontade para usar, modificar e distribuir o TocaPlay de acordo com os termos da licença.
+
+### Contato
+
+Se você tiver alguma dúvida ou sugestão relacionada ao backend do TocaPlay, entre em contato conosco pelo email yagowb@gmail.com
