@@ -118,10 +118,7 @@ app.post('/usuarios', async (req, res) => {
     return res.status(400).json({ error: 'E-mail já cadastrado.' });
   }
 
-  const maiorId = await client.db("spotify").collection("usuarios").find().sort({ id: -1 }).limit(1).toArray();
-  const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
-
-  const novoUsuario = { id: novoId, nome, email, senha };
+  const novoUsuario = {  nome, email, senha };
 
   await client.db("spotify").collection("usuarios").insertOne(novoUsuario);
 
@@ -194,8 +191,6 @@ app.post('/usuarios/:id/playlistsPrivadas', async (req, res) => {
     return res.status(404).json({ error: 'Usuário não encontrado.' });
   }
 
-  //const maiorId = await client.db("spotify").collection("playlistsPrivadas").find().sort({ id: -1 }).limit(1).toArray();
-  //const novoId = maiorId.length > 0 ? maiorId[0].id + 1 : 1;
 
   const novaPlaylist = { idUsuario: id, nome, musicas };
 
@@ -215,10 +210,6 @@ app.patch('/playlistsPrivadas/:playlistId', async (req, res) => {
   const {  playlistId } = req.params;
 
   await client.connect();
-  //const usuarioRequisitado = await client.db("spotify").collection("usuarios").findOne({ id });
-  //if (!usuarioRequisitado) {
-   // return res.status(404).json({ error: 'Usuário não encontrado.' });
-  //}
 
   const playlistReq = await client.db("spotify").collection("playlistsPrivadas").findOne({ _id: new ObjectId(playlistId)  });
   if (!playlistReq) {
